@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  coppelia:
+    image: coppelia:v4.7.0rev4
+    build:
+      dockerfile: ./config/docker/ubuntu/coppelia.Dockerfile
+    volumes:
+      - shared_bashrc:/root
+      - shared_home_seer:/home/seer
+  gazebo:
+    image: gazebo:classic-11.10.2
+    build:
+      dockerfile: ./config/docker/ubuntu/gazebo.Dockerfile
+    volumes:
+      - shared_bashrc:/root
+      - shared_home_seer:/home/seer
+    depends_on:
+      - coppelia
+  # isaac-sim:
+  #   image: nvcr.io/nvidia/isaac-sim:4.1.0  # Replace with the specific Isaac Sim Docker image version you are using
+  #   container_name: isaac_sim_container
+  #   #runtime: nvidia
+  #   environment:
+  #     - "NVIDIA_VISIBLE_DEVICES=all"
+  #     - "NVIDIA_DRIVER_CAPABILITIES=all"
+  #     - "ACCEPT_EULA=Y"  # Required by NVIDIA containers
+  #     - "PRIVACY_CONSENT=Y"
+  #     - "OMNIVERSE_URL=http://localhost"  # Example of setting up Omniverse server URL
+  #   volumes:
+  #     #- /path/to/your/data:/root/data   # Example of mounting a data directory
+  #     - isaac_sim_data:/root/.local/share/ov  # Persistent data volume
+  #   ports:
+  #     - "8080:8080"  # Example of exposing a port
+  seer_ws:
+    image: seer_ws:1.0.0
+    build:
+      dockerfile: ./config/docker/ubuntu/ros_humble_env.Dockerfile
+    environment:
+      - "DISPLAY=172.27.176.1:5"
+    volumes:
+      - shared_bashrc:/root
+      - shared_home_seer:/home/seer
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    depends_on:
+      - coppelia
+      - gazebo
+    networks:
+      - my_network
+volumes:
+  shared_bashrc:
+  shared_home_seer:
+  # isaac_sim_data:  # Volume for persistent Isaac Sim data
+  #   driver: local
+networks:
+  my_network:
+    driver: bridge

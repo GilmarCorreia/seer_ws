@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  seer:
+    image: seer-nvidia-min:1.1.0
+    build:
+      context: .
+      dockerfile: ./config/docker/ubuntu/seer.Dockerfile
+    environment:
+      - USER=root
+      - DISPLAY=:1
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /home/gilmar/Desktop/seer/seer_ws/logs:/home/ubuntu/seer/seer_ws/logs
+    ports:
+      - "6080:6080"  # Porta para acessar o noVNC
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    runtime: nvidia
