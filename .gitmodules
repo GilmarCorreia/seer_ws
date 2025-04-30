@@ -1,0 +1,4 @@
+[submodule "src/w3_600b"]
+	path = src/w3_600b
+	url = https://github.com/GilmarCorreia/w3_600b.git
+	branch = main
