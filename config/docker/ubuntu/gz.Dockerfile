@@ -4,6 +4,9 @@ FROM ros:humble-ros-base
     RUN apt-get update && apt-get install -y --no-install-recommends \
         ros-humble-ros-gz* \ 
         ros-humble-gz* \ 
+        mesa-utils \ 
+        mesa-vulkan-drivers \
+        libgl1-mesa-dri \
         #ros-humble-gz-ros2-control para o JAZZY 
         && \
         apt-get clean && \

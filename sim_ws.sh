@@ -24,10 +24,16 @@ source /opt/ros/humble/setup.bash
 source $SIM_WS_DIR/install/setup.bash
 
 # Setting GAZEBO
-source /usr/share/gazebo/setup.sh
-export LIBGL_ALWAYS_SOFTWARE=1
-export GAZEBO_MODEL_PATH=~/.gazebo/models:$SIM_WS_DIR/install/sim_models/share
-#export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH
+export GAZEBO_VERSION="Latest"
+
+if [[ $GAZEBO_VERSION == "Classic" ]]; then
+    source /usr/share/gazebo/setup.sh
+    export LIBGL_ALWAYS_SOFTWARE=1
+    export GAZEBO_MODEL_PATH=~/.gazebo/models:$SIM_WS_DIR/install/sim_models/share
+    #export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH
+else
+    export GZ_SIM_RESOURCE_PATH=$SIM_WS_DIR/install/sim_models/share:$GZ_SIM_RESOURCE_PATH
+fi
 
 # Setting COPPELIASIM
 coppeliasim_version="V4_9_0_rev6"
