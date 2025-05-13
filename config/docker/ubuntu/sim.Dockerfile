@@ -54,9 +54,9 @@ FROM base_image
     WORKDIR /home/ubuntu/sim
 
     ENV SIM_DIR=/home/ubuntu/sim
-    ENV SIM_WS_DIR=/home/ubuntu/sim/seer_ws
+    ENV SIM_WS_DIR=/home/ubuntu/sim/sim_ws
 
-    COPY config/docker/ubuntu/seer.sh seer.sh
+    COPY config/docker/ubuntu/sim.sh sim.sh
 
     COPY config/docker/ubuntu/01_configuring_coppeliasim.sh scripts/01_configuring_coppeliasim.sh
     RUN bash scripts/01_configuring_coppeliasim.sh
