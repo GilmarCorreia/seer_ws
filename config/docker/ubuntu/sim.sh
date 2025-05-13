@@ -17,15 +17,14 @@ unset color_prompt force_color_prompt
 # ROS Humble Setup
 source /opt/ros/humble/setup.bash
 
-# ROS Humble SEER Workspace
-source $SEER_WS_DIR/install/setup.bash
+# ROS Humble Sim Workspace
+source $SIM_WS_DIR/install/setup.bash
 
 # Setting GAZEBO
 source /usr/share/gazebo/setup.sh
 export LIBGL_ALWAYS_SOFTWARE=1
-export GAZEBO_MODEL_PATH=~/.gazebo/models:$SEER_WS_DIR/install/sim_models/share
-export GAZEBO_PLUGIN_PATH=$SEER_WS_DIR/install/gazebo_logger/lib:$GAZEBO_PLUGIN_PATH
+export GAZEBO_MODEL_PATH=~/.gazebo/models:$SIM_WS_DIR/install/sim_models/share
 
 # Setting COPPELIASIM
-coppeliasim_version="V4_7_0_rev4"
-export COPPELIASIM_ROOT_DIR=$SEER_DIR/Downloads/CoppeliaSim_Edu_${coppeliasim_version}_Ubuntu22_04
+coppeliasim_version="V4_9_0_rev6"
+export COPPELIASIM_ROOT_DIR=$SIM_DIR/Downloads/CoppeliaSim_Edu_${coppeliasim_version}_Ubuntu22_04

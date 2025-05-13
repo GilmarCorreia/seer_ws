@@ -1,10 +1,10 @@
 version: '3.8'
 
 services:
-  seer:
-    image: seer:1.0.0
+  sim:
+    image: sim:1.0.0
     build:
-      dockerfile: ./config/docker/ubuntu/seer.Dockerfile
+      dockerfile: ./config/docker/ubuntu/sim.Dockerfile
     environment:
       - USER=root
       - DISPLAY=:1

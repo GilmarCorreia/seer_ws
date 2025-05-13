@@ -1,6 +1,6 @@
 #!/bin/bash
 
-seer_version="1.1.0"
+sim_version="1.0.0"
 env="ubuntu"
 
 # # Prompt the user to enter the operating system
@@ -15,7 +15,7 @@ env="ubuntu"
 # fi
 
 # Prompt the user for the package to build
-read -p "Enter the package to build (seer-min | seer-full | seer-nvidia-min | seer-nvidia-full | coppelia | gazebo | isaac | ros2-humble): " pkg
+read -p "Enter the package to build (sim-min | sim-full | sim-nvidia-min | sim-nvidia-full | coppelia | gazebo | isaac | ros2-humble): " pkg
 
 if [ "$pkg" == "coppelia" ] || [ "$pkg" == "gazebo" ] || [ "$pkg" == "isaac" ] || [ "$pkg" == "ros2" ]; then
     use_compose="n"
@@ -34,8 +34,8 @@ if [ "$use_compose" == "n" ]; then
     if [ "$enable_visual" == "y" ]; then
         docker_params="--env DISPLAY=$DISPLAY --volume /tmp/.X11-unix:/tmp/.X11-unix"
 
-        if [ "$pkg" == "seer-min" ] || [ "$pkg" == "seer-full" ] || [ "$pkg" == "seer-nvidia-min" ] || [ "$pkg" == "seer-nvidia-full" ]; then
-            entrypoint='bash -c "source /root/.bashrc; ros2 launch senai_models model_rsp.launch.py model:=mir100"'
+        if [ "$pkg" == "sim-min" ] || [ "$pkg" == "sim-full" ] || [ "$pkg" == "sim-nvidia-min" ] || [ "$pkg" == "sim-nvidia-full" ]; then
+            entrypoint='bash -c "source /root/.bashrc; ros2 launch sim_models model_rsp.launch.py model:=w3_600b"'
         elif [ "$pkg" == "coppelia" ]; then
             entrypoint='bash -c "source /root/.bashrc; $COPPELIASIM_ROOT_DIR/coppeliaSim.sh"'
         elif [ "$pkg" == "gazebo" ]; then
@@ -54,17 +54,17 @@ if [ "$use_compose" == "n" ]; then
 fi
 
 # Build and run the chosen package
-if [ "$pkg" == "seer-min" ] || [ "$pkg" == "seer-full" ] || [ "$pkg" == "seer-nvidia-min" ] || [ "$pkg" == "seer-nvidia-full" ]; then
+if [ "$pkg" == "sim-min" ] || [ "$pkg" == "sim-full" ] || [ "$pkg" == "sim-nvidia-min" ] || [ "$pkg" == "sim-nvidia-full" ]; then
     if [ "$use_compose" == "y" ]; then
         #docker-compose -f $pkg-compose.yml build
         docker-compose -f $pkg-compose.yml up -d --build
     else
-        docker build . -f config/docker/$env/seer.Dockerfile --tag=$pkg:$seer_version
-        docker run -it --rm $docker_params -p 6080:6080 $pkg:$seer_version $entrypoint
+        docker build . -f config/docker/$env/sim.Dockerfile --tag=$pkg:$sim_version
+        docker run -it --rm $docker_params -p 6080:6080 $pkg:$sim_version $entrypoint
     fi
 elif [ "$pkg" == "coppelia" ]; then
-    docker build . -f config/docker/$env/coppelia.Dockerfile --tag=coppelia:v4.7.0rev4
-    docker run -it --rm $docker_params coppelia:v4.7.0rev4 $entrypoint
+    docker build . -f config/docker/$env/coppelia.Dockerfile --tag=coppelia:v4.9.0rev6
+    docker run -it --rm $docker_params coppelia:v4.9.0rev6 $entrypoint
 elif [ "$pkg" == "gazebo" ]; then
     docker build . -f config/docker/$env/gazebo.Dockerfile --tag=gazebo:classic-11.10.2
     docker run -it --rm $docker_params gazebo:classic-11.10.2 $entrypoint

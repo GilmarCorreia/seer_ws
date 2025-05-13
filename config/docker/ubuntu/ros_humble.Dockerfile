@@ -13,7 +13,7 @@ FROM ros:humble-ros-base
         python3-setuptools && \
         apt-get clean
 
-    WORKDIR /home/seer
+    WORKDIR /home/sim
 
     COPY config/docker/ubuntu/03_configuring_workspace.sh scripts/03_configuring_workspace.sh
     RUN sudo bash scripts/03_configuring_workspace.sh

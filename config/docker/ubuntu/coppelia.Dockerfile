@@ -12,7 +12,7 @@ FROM ubuntu:22.04
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-    WORKDIR /home/seer
+    WORKDIR /home/sim
 
     COPY config/docker/ubuntu/01_configuring_coppeliasim.sh scripts/01_configuring_coppeliasim.sh
     RUN bash scripts/01_configuring_coppeliasim.sh

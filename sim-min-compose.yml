@@ -1,16 +1,15 @@
 version: '3.8'
 
 services:
-  seer:
-    image: seer-min:1.1.0
+  sim:
+    image: sim-min:1.0.0
     build:
       context: .
-      dockerfile: ./config/docker/ubuntu/seer.Dockerfile
+      dockerfile: ./config/docker/ubuntu/sim.Dockerfile
     environment:
       - USER=root
       - DISPLAY=:1
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - /home/gilmar/Desktop/seer/seer_ws/logs:/home/ubuntu/seer/seer_ws/logs
     ports:
       - "6080:6080"  # Porta para acessar o noVNC

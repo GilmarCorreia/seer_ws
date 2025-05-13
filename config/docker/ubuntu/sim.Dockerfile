@@ -51,10 +51,10 @@ FROM ros:humble-ros-base AS base_image
 
 FROM base_image
     USER ubuntu
-    WORKDIR /home/ubuntu/seer
+    WORKDIR /home/ubuntu/sim
 
-    ENV SEER_DIR=/home/ubuntu/seer
-    ENV SEER_WS_DIR=/home/ubuntu/seer/seer_ws
+    ENV SIM_DIR=/home/ubuntu/sim
+    ENV SIM_WS_DIR=/home/ubuntu/sim/seer_ws
 
     COPY config/docker/ubuntu/seer.sh seer.sh
 
@@ -64,23 +64,16 @@ FROM base_image
     COPY config/docker/ubuntu/02_configuring_gazebo.sh scripts/02_configuring_gazebo.sh
     RUN bash scripts/02_configuring_gazebo.sh
 
-    # Importing SSH config
-    RUN sudo apt-get install -y openssh-client
-    RUN sudo mkdir -p /home/ubuntu/.ssh
-    COPY config/docker/ubuntu/seer-ssh-key /home/ubuntu/.ssh/seer-ssh-key
-    RUN sudo chmod -R 777 /home/ubuntu/.ssh
-    RUN echo "Host github.com\n\tStrictHostKeyChecking no\n\tIdentityFile /home/ubuntu/.ssh/seer-ssh-key" >> /home/ubuntu/.ssh/config
-
     COPY config/docker/ubuntu/03_configuring_workspace.sh scripts/03_configuring_workspace.sh
     RUN bash scripts/03_configuring_workspace.sh
 
     # Instala o noVNC e o websockify
-    RUN git clone https://github.com/novnc/noVNC $SEER_DIR/Downloads/noVNC && \
-    cd $SEER_DIR/Downloads/noVNC && \
+    RUN git clone https://github.com/novnc/noVNC $SIM_DIR/Downloads/noVNC && \
+    cd $SIM_DIR/Downloads/noVNC && \
     git checkout v1.5.0 && \
     wget https://github.com/novnc/websockify/archive/refs/tags/v0.12.0.tar.gz && \
     tar -xvf v0.12.0.tar.gz && \
-    mv websockify-0.12.0 $SEER_DIR/Downloads/noVNC/websockify && \
+    mv websockify-0.12.0 $SIM_DIR/Downloads/noVNC/websockify && \
     rm v0.12.0.tar.gz
 
     # # Configura o VNC e noVNC
@@ -92,9 +85,8 @@ FROM base_image
     EXPOSE 5900 6080
 
     # Adiciona script de inicialização
-    COPY config/docker/ubuntu/start.sh $SEER_DIR/start.sh
-    COPY config/docker/ubuntu/exps.sh $SEER_DIR/exps.sh
-    RUN sudo chmod +x $SEER_DIR/start.sh && sudo chmod a+wx $SEER_DIR/exps.sh
+    COPY config/docker/ubuntu/start.sh $SIM_DIR/start.sh
+    RUN sudo chmod +x $SIM_DIR/start.sh
 
     # Define o comando para iniciar o VNC e noVNC
-    CMD ["/home/ubuntu/seer/start.sh"]
+    CMD ["/home/ubuntu/sim/start.sh"]

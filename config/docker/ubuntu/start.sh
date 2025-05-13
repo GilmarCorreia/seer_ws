@@ -14,7 +14,7 @@ startxfce4 &
 #tightvncserver $DISPLAY -geometry 1920x1080 -depth 24
 
 # Inicia o noVNC
-$SEER_DIR/Downloads/noVNC/utils/novnc_proxy --vnc localhost:5900 --listen 6080
+$SIM_DIR/Downloads/noVNC/utils/novnc_proxy --vnc localhost:5900 --listen 6080
 
 # Keep the script running
 tail -f /dev/null

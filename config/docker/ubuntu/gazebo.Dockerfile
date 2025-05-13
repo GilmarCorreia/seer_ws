@@ -10,7 +10,7 @@ FROM ros:humble-ros-base
         apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 
-    WORKDIR /home/seer
+    WORKDIR /home/sim
     
     COPY config/docker/ubuntu/02_configuring_gazebo.sh scripts/02_configuring_gazebo.sh
     RUN bash scripts/02_configuring_gazebo.sh

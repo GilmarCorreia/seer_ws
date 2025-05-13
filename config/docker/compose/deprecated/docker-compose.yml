@@ -2,19 +2,19 @@ version: '3.8'
 
 services:
   coppelia:
-    image: coppelia:v4.7.0rev4
+    image: coppelia:v4.9.0rev6
     build:
       dockerfile: ./config/docker/ubuntu/coppelia.Dockerfile
     volumes:
       - shared_bashrc:/root
-      - shared_home_seer:/home/seer
+      - shared_home_sim:/home/sim
   gazebo:
     image: gazebo:classic-11.10.2
     build:
       dockerfile: ./config/docker/ubuntu/gazebo.Dockerfile
     volumes:
       - shared_bashrc:/root
-      - shared_home_seer:/home/seer
+      - shared_home_sim:/home/sim
     depends_on:
       - coppelia
   # isaac-sim:
@@ -32,8 +32,8 @@ services:
   #     - isaac_sim_data:/root/.local/share/ov  # Persistent data volume
   #   ports:
   #     - "8080:8080"  # Example of exposing a port
-  seer_ws:
-    image: seer_ws:1.0.0
+  sim_ws:
+    image: sim_ws:1.0.0
     build:
       dockerfile: ./config/docker/ubuntu/ros_humble_env.Dockerfile
     environment:
@@ -49,7 +49,7 @@ services:
       - my_network
 volumes:
   shared_bashrc:
-  shared_home_seer:
+  shared_home_sim:
   # isaac_sim_data:  # Volume for persistent Isaac Sim data
   #   driver: local
 networks:

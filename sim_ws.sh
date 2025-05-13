@@ -24,9 +24,9 @@ source /opt/ros/humble/setup.bash
 source $SIM_WS_DIR/install/setup.bash
 
 # Setting GAZEBO
-export GAZEBO_VERSION="Latest"
+export GAZEBO_VERSION="classic"
 
-if [[ $GAZEBO_VERSION == "Classic" ]]; then
+if [[ $GAZEBO_VERSION == "classic" ]]; then
     source /usr/share/gazebo/setup.sh
     export LIBGL_ALWAYS_SOFTWARE=1
     export GAZEBO_MODEL_PATH=~/.gazebo/models:$SIM_WS_DIR/install/sim_models/share
