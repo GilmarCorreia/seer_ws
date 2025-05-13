@@ -1,6 +1,6 @@
 @echo off
 
-set "seer_version=1.1.0"
+set "sim_version=1.0.0"
 set "DISPLAY=:0"
 set "env=ubuntu"
 
@@ -16,7 +16,7 @@ set "env=ubuntu"
 echo Chosen operating system: %env%
 
 REM Prompt the user for the package to build
-set /p "pkg=Enter the package to build (seer-min | seer-full | seer-nvidia-min | seer-nvidia-full | coppelia | gazebo | isaac | ros2-humble): "
+set /p "pkg=Enter the package to build (sim-min | sim-full | sim-nvidia-min | sim-nvidia-full | coppelia | gazebo | isaac | ros2-humble): "
 
 REM Set default values
 set "entrypoint="
@@ -37,10 +37,10 @@ if /i "%use_compose%"=="y" goto BUILD
     if /i "%enable_visual%"=="y" (
         set "docker_params=--env DISPLAY=%DISPLAY% --volume /tmp/.X11-unix:/tmp/.X11-unix"
 
-        if /i "%pkg%"=="seer-min" set "entrypoint=bash -c 'source /root/.bashrc; ros2 launch senai_models model_rsp.launch.py model:=mir100'"
-        if /i "%pkg%"=="seer-full" set "entrypoint=bash -c 'source /root/.bashrc; ros2 launch senai_models model_rsp.launch.py model:=mir100'" 
-        if /i "%pkg%"=="seer-nvidia-min" set "entrypoint=bash -c 'source /root/.bashrc; ros2 launch senai_models model_rsp.launch.py model:=mir100'"
-        if /i "%pkg%"=="seer-nvidia-full" set "entrypoint=bash -c 'source /root/.bashrc; ros2 launch senai_models model_rsp.launch.py model:=mir100'" 
+        if /i "%pkg%"=="sim-min" set "entrypoint=bash -c 'source /root/.bashrc; ros2 launch sim_models model_rsp.launch.py model:=w3_600b'"
+        if /i "%pkg%"=="sim-full" set "entrypoint=bash -c 'source /root/.bashrc; ros2 launch sim_models model_rsp.launch.py model:=w3_600b'" 
+        if /i "%pkg%"=="sim-nvidia-min" set "entrypoint=bash -c 'source /root/.bashrc; ros2 launch sim_models model_rsp.launch.py model:=w3_600b'"
+        if /i "%pkg%"=="sim-nvidia-full" set "entrypoint=bash -c 'source /root/.bashrc; ros2 launch sim_models model_rsp.launch.py model:=w3_600b'" 
         if /i "%pkg%"=="coppelia" set "entrypoint=bash -c 'source /root/.bashrc; $COPPELIASIM_ROOT_DIR/coppeliaSim.sh'"
         if /i "%pkg%"=="gazebo" set "entrypoint=gazebo --verbose"
         if /i "%pkg%"=="ros2" set "entrypoint=/bin/bash"
@@ -59,47 +59,47 @@ if /i "%use_compose%"=="y" goto BUILD
 
 :BUILD
     REM Build and run the chosen package
-    if /i "%pkg%"=="seer-min" (
+    if /i "%pkg%"=="sim-min" (
         if /i "%use_compose%"=="y" (
             docker-compose -f %pkg%-compose.yml up -d --build
             goto :EOF
         )
         
-        docker build . -f config\docker\%env%\seer.Dockerfile --tag=%pkg%:%seer_version%
-        docker run -it --rm %docker_params% -p 6080:6080 %pkg%:%seer_version% %entrypoint%
+        docker build . -f config\docker\%env%\sim.Dockerfile --tag=%pkg%:%sim_version%
+        docker run -it --rm %docker_params% -p 6080:6080 %pkg%:%sim_version% %entrypoint%
         goto :EOF
     ) 
 
-    if /i "%pkg%"=="seer-full" (
+    if /i "%pkg%"=="sim-full" (
         if /i "%use_compose%"=="y" (
             docker-compose -f %pkg%-compose.yml up -d --build
             goto :EOF
         )
 
-        docker build . -f config\docker\%env%\seer.Dockerfile --tag=%pkg%:%seer_version%
-        docker run -it --rm %docker_params% -p 6080:6080 %pkg%:%seer_version% %entrypoint%
+        docker build . -f config\docker\%env%\sim.Dockerfile --tag=%pkg%:%sim_version%
+        docker run -it --rm %docker_params% -p 6080:6080 %pkg%:%sim_version% %entrypoint%
         goto :EOF
     )
     
-    if /i "%pkg%"=="seer-nvidia-min" (
+    if /i "%pkg%"=="sim-nvidia-min" (
         if /i "%use_compose%"=="y" (
             docker-compose -f %pkg%-compose.yml up -d --build
             goto :EOF
         )
 
-        docker build . -f config\docker\%env%\seer.Dockerfile --tag=%pkg%:%seer_version%
-        docker run -it --rm %docker_params% -p 6080:6080 %pkg%:%seer_version% %entrypoint%
+        docker build . -f config\docker\%env%\sim.Dockerfile --tag=%pkg%:%sim_version%
+        docker run -it --rm %docker_params% -p 6080:6080 %pkg%:%sim_version% %entrypoint%
         goto :EOF
     )
     
-    if /i "%pkg%"=="seer-nvidia-full" (
+    if /i "%pkg%"=="sim-nvidia-full" (
         if /i "%use_compose%"=="y" (
             docker-compose -f %pkg%-compose.yml up -d --build
             goto :EOF
         )
 
-        docker build . -f config\docker\%env%\seer.Dockerfile --tag=%pkg%:%seer_version%
-        docker run -it --rm %docker_params% -p 6080:6080 %pkg%:%seer_version% %entrypoint%
+        docker build . -f config\docker\%env%\sim.Dockerfile --tag=%pkg%:%sim_version%
+        docker run -it --rm %docker_params% -p 6080:6080 %pkg%:%sim_version% %entrypoint%
         goto :EOF
     )
     

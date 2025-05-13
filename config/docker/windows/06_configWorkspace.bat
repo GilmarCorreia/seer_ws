@@ -11,7 +11,7 @@ vcpkg install jsoncpp:x64-windows libzip:x64-windows
 vcpkg integrate install
 
 REM Construindo o pacote sim_ros2_interface
-cd %SEER_WS_DIR%
+cd %SIM_WS_DIR%
 
 call %ROS_INIT_WS%
 set CMAKE_PREFIX_PATH=C:\vcpkg\installed\x64-windows

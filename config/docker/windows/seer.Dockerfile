@@ -1,9 +1,9 @@
 FROM chocolatey/choco:latest-windows
 
-    # Configuring seer_dir
-    WORKDIR seer
+    # Configuring sim_dir
+    WORKDIR sim
 
-    ENV SEER_DIR=C:\\seer
+    ENV SIM_DIR=C:\\sim
 
     COPY config/docker/windows/01_install.bat scripts/01_install.bat
     RUN scripts\01_install.bat
@@ -29,7 +29,7 @@ FROM chocolatey/choco:latest-windows
     RUN scripts\03_installRos.bat
 
     COPY config/docker/windows/04_configWorkspace.bat scripts/04_configWorkspace.bat
-    RUN call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\VsDevCmd.bat" && C:\seer\scripts\04_configWorkspace.bat
+    RUN call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\VsDevCmd.bat" && C:\sim\scripts\04_configWorkspace.bat
 
     # COPY config/docker/windows/05_installCoppelia.bat scripts/05_installCoppelia.bat
     # RUN scripts\05_installCoppelia.bat

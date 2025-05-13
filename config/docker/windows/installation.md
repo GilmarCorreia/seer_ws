@@ -126,7 +126,7 @@ cd "%UserProfile%\Desktop"
 mkdir -p "ros2_ws\src"
 cd ros2_ws\src
 
-git clone https://github.com/CDC-IA/senai_models.git
+git clone https://github.com/GilmarCorreia/sim_models.git
 git clone https://github.com/CoppeliaRobotics/simROS2.git sim_ros2_interface
 
 pip install xmlschema

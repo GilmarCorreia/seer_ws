@@ -40,7 +40,7 @@ services:
       - "DISPLAY=172.27.176.1:5"
     volumes:
       - shared_bashrc:/root
-      - shared_home_seer:/home/seer
+      - shared_home_sim:/home/sim
       - /tmp/.X11-unix:/tmp/.X11-unix
     depends_on:
       - coppelia

@@ -1,12 +1,12 @@
 REM Clonando repositorios gazebo_ros_pkgs
-cd %SEER_WS_DIR%
+cd %SIM_WS_DIR%
 git checkout win
 git pull
 git submodule update --init --recursive
 init_submodules.bat
 
 REM Setando variaveis de ambiente do vcpkg
-cd %SEER_WS_DIR%
+cd %SIM_WS_DIR%
 call %ROS_INIT%
 call colcon build --packages-select angles ackermann_msgs cv_bridge filters tcb_span tl_expected pluginlib --cmake-args -DCMAKE_PREFIX_PATH="C:/boost" -DBOOST_ROOT="C:/boost" -DBoost_NO_SYSTEM_PATHS=ON -DBUILD_TESTING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON -DPython3_EXECUTABLE="C:/Python38/python.exe"
 
@@ -26,5 +26,5 @@ call colcon build --continue-on-error --packages-ignore rsl --cmake-args -DCMAKE
 
 REM Adicionando a variavel de ambiente GAZEBO_MODEL_PATH
 mkdir %USERPROFILE%\.gazebo\models
-setx /m GAZEBO_MODEL_PATH "%USERPROFILE%\.gazebo\models;%SEER_WS_DIR%\install\senai_models\share"
-setx /m GAZEBO_PLUGIN_PATH "%SEER_WS_DIR%\install\gazebo_logger\bin;%GAZEBO_PLUGIN_PATH%"
+setx /m GAZEBO_MODEL_PATH "%USERPROFILE%\.gazebo\models;%SIM_WS_DIR%\install\sim_models\share"
+setx /m GAZEBO_PLUGIN_PATH "%SIM_WS_DIR%\install\gazebo_logger\bin;%GAZEBO_PLUGIN_PATH%"
