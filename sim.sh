@@ -1,5 +1,5 @@
-# Configure language
-export LANG=pt_BR.UTF-8
+# # Configure language
+# export LANG=pt_BR.UTF-8
 
 # Show git branch name
 force_color_prompt=yes
@@ -15,7 +15,7 @@ fi
 unset color_prompt force_color_prompt
 
 # Environment Variables
-export SIM_WS_DIR=$HOME/Desktop/seer/seer_ws
+export SIM_WS_DIR=$HOME/sim/sim_ws
 
 # ROS Humble Setup
 source /opt/ros/humble/setup.bash
