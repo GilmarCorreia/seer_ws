@@ -24,7 +24,7 @@ source /opt/ros/humble/setup.bash
 source $SIM_WS_DIR/install/setup.bash
 
 # Setting GAZEBO
-export GAZEBO_VERSION="classic"
+export GAZEBO_VERSION="ignition"
 
 if [[ $GAZEBO_VERSION == "classic" ]]; then
     source /usr/share/gazebo/setup.sh
@@ -32,6 +32,7 @@ if [[ $GAZEBO_VERSION == "classic" ]]; then
     export GAZEBO_MODEL_PATH=~/.gazebo/models:$SIM_WS_DIR/install/sim_models/share
     #export GAZEBO_PLUGIN_PATH=$GAZEBO_PLUGIN_PATH
 else
+    unset LIBGL_ALWAYS_SOFTWARE
     export GZ_SIM_RESOURCE_PATH=$SIM_WS_DIR/install/sim_models/share:$GZ_SIM_RESOURCE_PATH
 fi
 
