@@ -34,6 +34,7 @@ if [[ $GAZEBO_VERSION == "classic" ]]; then
 else
     unset LIBGL_ALWAYS_SOFTWARE
     export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$(ros2 pkg prefix sim_models)/share
+    export IGN_GAZEBO_RESOURCE_PATH=$IGN_GAZEBO_RESOURCE_PATH:$(ros2 pkg prefix sim_models)/share
 fi
 
 # Setting COPPELIASIM
