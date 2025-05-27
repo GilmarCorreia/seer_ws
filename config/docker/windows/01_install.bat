@@ -65,4 +65,4 @@ mkdir xmllint
 move xmllint C:\
 
 REM Instalando o Visual Studio 2019 Community
-REM choco install -y visualstudio2019community
+choco install -y visualstudio2019community

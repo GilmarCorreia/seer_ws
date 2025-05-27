@@ -5,8 +5,8 @@ vcpkg install protobuf protobuf:x64-windows protobuf[zlib] protobuf[zlib]:x64-wi
 vcpkg integrate install
 
 REM Criando um ambiente virtual para o gazebo
-setx conda "%USERPROFILE%\anaconda3\Library\bin\conda.bat"
+setx conda "C:\tools\Anaconda3\condabin\conda.bat"
 call RefreshEnv.cmd
-call %conda% create -y -n gazebo python=3.8
-call %conda% activate gazebo
+call %conda% create -y -n gazebo-classic python=3.10
+call %conda% activate gazebo-classic
 call %conda% install -y -c conda-forge gazebo

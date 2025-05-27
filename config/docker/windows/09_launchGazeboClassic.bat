@@ -2,5 +2,5 @@ REM Criando pasta models
 mkdir %USERPROFILE%\.gazebo\models
 
 REM Lancando o Gazebo
-call %conda% activate gazebo
+call %conda% activate gazebo-classic
 gazebo
