@@ -5,7 +5,7 @@ python3 -m pip install -U pip
 pip install pyzmq cbor2 xmlschema coppeliasim-zmqremoteapi-client psutil pympler numpy==1.24 pandas
 
 # choosing coppelia sim version
-coppeliasim_version="V4_9_0_rev6"
+coppeliasim_version="V4_10_0_rev0"
 
 # Downloading coppelia sim
 cd $SIM_DIR
